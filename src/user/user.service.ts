@@ -317,47 +317,20 @@ export class UserService {
   }
 
   //get total in the cart
-  async getTotal(email: string): Promise<any> {
+  async getTotal(email: string): Promise<number> {
     const user = await this.userModel.findOne({ email });
     if (!user) throw new BadRequestException('User does not exist');
-
     const totalItems: Cart[] = await this.cartModel.find({
       userId: user._id,
     });
 
-    //  const result: any = await this.cartModel.aggregate([
-    //    {
-    //      $group: {
-    //        _id: new ObjectId(user._id),
-    //        totalSum: { $sum:  '$quantity' },
-    //      },
-    //    },
-    //  ]);
-    //   this.logger.log(result);
-    //   return result;
-    //return this.cartModel.count({ userId: user._id });
-    return this.cartModel.aggregate([
-      {
-        $group: {
-          userId: user._id,
-          Amount: { $sum: { $multiply: ['$currentPrice', '$quantity'] } },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          TotalAmount: '$Amount',
-        },
-      },
-    ]);
+    if (totalItems.length > 0)
+      return totalItems.reduce((acc: any, cur: Cart) => {
+        acc = acc + cur.currentPrice * cur.quantity;
+        return acc;
+      }, 0);
 
-    // let total = 0;
-    // if (totalItems.length > 0) {
-    //   totalItems.forEach((item: Cart) => {
-    //     total += item.currentPrice * item.quantity;
-    //   });
-    // }
-    // return total;
+    return 0;
   }
 
   //increase quantity in cart

@@ -90,6 +90,17 @@ export class MallService {
     return this.productModel.paginate({}, options);
   }
 
+  //find top products
+  async topProducts(): Promise<any> {
+    const options = {
+      page: 1,
+      limit: 4,
+      sort: { rating: 'desc' },
+      lean: true,
+    };
+    return this.productModel.paginate({  }, options);
+  }
+
   getAllCategories(params: PaginationParams): Promise<any> {
     const { page, perPage } = params;
     const options = {
@@ -192,9 +203,9 @@ export class MallService {
     query: SingleProductDto,
     userId: string,
   ) {
-     const ObjectId = mongoose.Types.ObjectId;
-     if (!ObjectId.isValid(userId))
-       throw new BadRequestException('Invalid User Id');
+    const ObjectId = mongoose.Types.ObjectId;
+    if (!ObjectId.isValid(userId))
+      throw new BadRequestException('Invalid User Id');
     const review: Review = {
       review: body.review,
       name: body.name,
@@ -209,28 +220,24 @@ export class MallService {
 
   //get reviews for a product
   async findReviews(productId: string) {
-     const ObjectId = mongoose.Types.ObjectId;
-     if (!ObjectId.isValid(productId))
-       throw new BadRequestException('Invalid Product Id');
+    const ObjectId = mongoose.Types.ObjectId;
+    if (!ObjectId.isValid(productId))
+      throw new BadRequestException('Invalid Product Id');
     return this.reviewModel.find({ productId });
   }
 
   //find single review
   async findOneReview(_id: string) {
-     const ObjectId = mongoose.Types.ObjectId;
-     if (!ObjectId.isValid(_id))
-       throw new BadRequestException('Invalid  Id');
+    const ObjectId = mongoose.Types.ObjectId;
+    if (!ObjectId.isValid(_id)) throw new BadRequestException('Invalid  Id');
     return this.reviewModel.findOne({ _id });
   }
 
   //edit review
-  async editReview(
-    reviewId: string,
-    newReview: string,
-  ): Promise<any> {
-     const ObjectId = mongoose.Types.ObjectId;
-     if (!ObjectId.isValid(reviewId))
-       throw new BadRequestException('Invalid Review Id');
+  async editReview(reviewId: string, newReview: string): Promise<any> {
+    const ObjectId = mongoose.Types.ObjectId;
+    if (!ObjectId.isValid(reviewId))
+      throw new BadRequestException('Invalid Review Id');
     const review = await this.reviewModel.findById(reviewId);
     if (!review) throw new BadRequestException('Review  does not exist');
     review.review = newReview;
@@ -240,9 +247,9 @@ export class MallService {
 
   //delete review
   async deleteReview(reviewId: string) {
-     const ObjectId = mongoose.Types.ObjectId;
-     if (!ObjectId.isValid(reviewId))
-       throw new BadRequestException('Invalid Review Id');
+    const ObjectId = mongoose.Types.ObjectId;
+    if (!ObjectId.isValid(reviewId))
+      throw new BadRequestException('Invalid Review Id');
     const review = await this.reviewModel.findById(reviewId);
     if (!review) throw new BadRequestException('Review  does not exist');
     return review.remove();
@@ -250,22 +257,19 @@ export class MallService {
 
   //get reviews by productId
   async getReviewsByProductId(productId: string) {
-     const ObjectId = mongoose.Types.ObjectId;
-     if (!ObjectId.isValid(productId))
-       throw new BadRequestException('Invalid Review Id');
+    const ObjectId = mongoose.Types.ObjectId;
+    if (!ObjectId.isValid(productId))
+      throw new BadRequestException('Invalid Review Id');
     return this.reviewModel.find({ productId });
   }
 
   //like review
-  async likeReview(condition: {
-    reviewId: string;
-    userId: string;
-  }) {
-     const ObjectId = mongoose.Types.ObjectId;
-     if (!ObjectId.isValid(condition.reviewId))
-       throw new BadRequestException('Invalid Review Id');
-     if (!ObjectId.isValid(condition.userId))
-       throw new BadRequestException('Invalid User Id');
+  async likeReview(condition: { reviewId: string; userId: string }) {
+    const ObjectId = mongoose.Types.ObjectId;
+    if (!ObjectId.isValid(condition.reviewId))
+      throw new BadRequestException('Invalid Review Id');
+    if (!ObjectId.isValid(condition.userId))
+      throw new BadRequestException('Invalid User Id');
     const review = await this.reviewModel.findById(condition.reviewId);
     if (!review) throw new BadRequestException('Review  does not exist');
     //check if the post has already been liked
@@ -281,10 +285,7 @@ export class MallService {
   }
 
   //unlike review
-  async unlikeReview(condition: {
-    reviewId: string;
-    userId: string;
-  }) {
+  async unlikeReview(condition: { reviewId: string; userId: string }) {
     const ObjectId = mongoose.Types.ObjectId;
     if (!ObjectId.isValid(condition.reviewId))
       throw new BadRequestException('Invalid Review Id');
@@ -345,10 +346,7 @@ export class MallService {
     return this.localGovernmentModel.find({});
   }
 
-  async editLocalGovernment(
-    localId: string,
-    body: EditLocalGovernmentDto,
-  ) {
+  async editLocalGovernment(localId: string, body: EditLocalGovernmentDto) {
     const ObjectId = mongoose.Types.ObjectId;
     if (!ObjectId.isValid(localId))
       throw new BadRequestException('Invalid  Id');
@@ -362,9 +360,9 @@ export class MallService {
   }
 
   async deletelocalGovernment(localId: string) {
-      const ObjectId = mongoose.Types.ObjectId;
-      if (!ObjectId.isValid(localId))
-        throw new BadRequestException('Invalid  Id');
+    const ObjectId = mongoose.Types.ObjectId;
+    if (!ObjectId.isValid(localId))
+      throw new BadRequestException('Invalid  Id');
     const localGovernment = await this.localGovernmentModel.findById(localId);
     if (!localGovernment)
       throw new BadRequestException("localgoverment wasn't found");

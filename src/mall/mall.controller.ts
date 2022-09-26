@@ -126,6 +126,13 @@ export class MallController {
     return this.mallService.findAll(query);
   }
 
+  //get top products
+  @Public()
+  @Get('/topProducts')
+  async getTopProducts() {
+    return this.mallService.topProducts();
+  }
+
   //get single product
   @HttpCode(HttpStatus.OK)
   @Public()

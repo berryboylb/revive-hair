@@ -16,7 +16,7 @@ export class CreateProductDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(3)
-  @MaxLength(25)
+  @MaxLength(50)
   readonly title: string;
 
   @IsNotEmpty()
