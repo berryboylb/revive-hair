@@ -1,0 +1,92 @@
+<table
+  border='0'
+  cellpadding='0'
+  cellspacing='0'
+  height='100%'
+  width='100%'
+  id='bodyTable'
+>
+  <tr>
+    <td align='center' valign='top'>
+      <table
+        border='0'
+        cellpadding='15'
+        cellspacing='0'
+        width='600'
+        id='emailContainer'
+      >
+        <tr>
+          <td align='center' valign='top'>
+            <table
+              border='0'
+              cellpadding='20'
+              cellspacing='0'
+              width='100%'
+              id='emailHeader'
+            >
+              <tr>
+                <td align='center' valign='top'>
+                  <img
+                    width=60
+                    height=60
+                    src='https://revivehaircosmetics.com/images/logo.png'
+                    alt='Revive'
+                  />
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align='center' valign='top'>
+            <table
+              border='0'
+              cellpadding='4'
+              cellspacing='0'
+              width='100%'
+              id='emailBody'
+            >
+              <tr>
+                <td style='color: #2f353d;' align='center' valign='top'>
+                  Hello
+                  {{email}},
+                  <br />
+                  <br />
+                  <br />
+                  <span style='color: #2f353d;'> Your Order has been confirmed, and your tracking id is below.</span>
+                  <br />
+                  <br />
+                  <br />
+                  <span style='color: #02A676; fontSize: '20px'>{{ trackingId }}</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align='center' valign='top'>
+            <table
+              border='0'
+              cellpadding='20'
+              cellspacing='0'
+              width='100%'
+              id='emailFooter'
+            >
+              <tr>
+                <td style='color: #369074;' align='center' valign='top'>
+                  You are receiving this email because of your subscription to
+                  RevivehairCosmetics.
+                  <br /><br />
+                  <a
+                    style='padding:3px; color: #999896;'
+                    href={{ link }}
+                  >If you don't like this email. Unsubscribe</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
